@@ -1,0 +1,71 @@
+.language {
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 25px;
+    border-radius: 15px;
+    background-color: #191726;
+    opacity: 0.85;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.languageButtons {
+    display: flex;
+}
+
+.title {
+    font-size: 20px;
+}
+
+.buttonMode {
+    justify-self: flex-start;
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+
+.buttonMode:hover {
+    cursor: pointer;
+}
+
+.buttonModeDay {
+    border: 1px solid #b8b4b4;
+    color: white;
+}
+
+.buttonModeNight {
+    border: 1px solid #ffa1eb;
+    color: #ffa1eb;
+}
+
+.buttonLanguage {
+    padding: 5px 10px;
+    border: 1px solid #b8b4b4;
+    color: white;
+}
+
+.buttonLanguageLeft {
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.buttonLanguageRight {
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.buttonLanguageSelected {
+    padding: 5px 10px;
+    border: 1px solid orange;
+    color: white;
+}
+
+.buttonLanguage:hover {
+    cursor: pointer;
+}
+
+

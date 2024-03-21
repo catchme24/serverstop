@@ -1,0 +1,23 @@
+.main {
+    margin-top: calc(10%);
+    background-color: #0F0D1A;
+    background: rgb(15,13,26);
+    background: linear-gradient(0grad, rgba(15,13,26,1) calc(100% - 200px), rgba(255,255,255,0) 100%);
+    min-height: 1000px;
+    /*border-width: 15px;*/
+    /*border-color: #ff0037;*/
+}
+
+.forForm {
+    background-color: white;
+}
+
+.mainComponents {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+

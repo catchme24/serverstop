@@ -1,0 +1,39 @@
+.homePage {
+    display: flex;
+    /*border-color: greenyellow;*/
+    background-color: #191726;
+    border-radius: 15px;
+}
+
+.homePageLeft {
+    display: flex;
+    justify-content: space-between;
+    /*gap: 20px;*/
+    flex-wrap: wrap;
+    background-color: white;
+    border-radius: 20px;
+    margin: 20px;
+    padding: 0px 20px;
+    padding-bottom: 20px;
+    width: 80%;
+    font-size: 15px;
+}
+
+.homePageRight {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    margin: 20px;
+    gap: 20px;
+    font-size: 15px;
+}
+
+.homePageWillOpen {
+    width: 49%;
+    text-align: center;
+}
+
+.homePageAlredyOpened {
+    width: 49%;
+    text-align: center;
+}

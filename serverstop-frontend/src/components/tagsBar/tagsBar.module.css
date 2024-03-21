@@ -1,0 +1,21 @@
+.tagsBar {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.searchButton {
+    text-align: center;
+    border: 1px #9c9c9c solid;
+    border-radius: 10px;
+    color: #bfbfbf;
+    padding: 5px 15px;
+}
+
+.searchButton:hover {
+    border-color: orange;
+    color: orange;
+    cursor: pointer;
+}

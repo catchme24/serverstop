@@ -1,0 +1,15 @@
+.serverList {
+    display: flex;
+    flex-direction: column;
+    /*border-color: deeppink;*/
+    width: 100%;
+}
+
+.serverListTitle {
+    text-align: center;
+    margin: 20px 0px;
+    color: #5a5a5a;
+    font-weight: bolder;
+    /*font-size: 20px;*/
+    text-transform: uppercase;
+}

@@ -1,0 +1,33 @@
+* {
+  margin: 0px;
+  /*border: 1px solid silver;*/
+  border: 0px;
+  padding: 0.0005px;
+  line-height: 1.5em;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+:any-link {
+
+}
+
+body {
+  font-family: Roboto;
+}
+
+.forAll {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 200px;
+  min-height: 100vh;
+}
+
+
+
+

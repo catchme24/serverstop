@@ -1,0 +1,77 @@
+.footer {
+    color: #b3b3b3;
+    background-color: #0F0D1A;
+    padding-top: 40px;
+    /*border-width: 15px;*/
+    /*border-color: #ff0037;*/
+}
+
+.footerDescription {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.descriptionTitle {
+    padding-bottom: 20px;
+}
+
+.descriptionLine {
+    padding-top: 10px;
+}
+
+.footerInformation {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 0px;
+}
+
+.informationTitle {
+    margin-bottom: 30px;
+}
+
+.footerLink {
+    text-decoration: none;
+    transition: color .2s linear;
+    position: relative;
+    color: #b3b3b3;
+}
+
+.footerLink:after {
+    content: '';
+    width: 100%;
+    height: 1px;
+    display: none;
+    background-color: white;
+    position: absolute;
+    top: 100%;
+    left: 0;
+}
+
+.footerLink:hover {
+    cursor: pointer;
+    color: white;
+}
+
+.footerLink:hover:after {
+    display: block;
+}
+
+.informationContacts {
+    display: flex;
+    justify-content: flex-start;
+    gap: 100px;
+}
+
+.footerSeporator {
+    height: 1px;
+    background-color: #878787;
+}
+
+.footerCopyright {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0px;
+}

@@ -1,0 +1,79 @@
+.serverDescription {
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
+    position: relative;
+    margin-bottom: 2px;
+}
+
+.serverDescription:hover {
+    background-color: #efedea;
+}
+
+.serverDescription:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 100%;
+    height: 1px;
+    background-color: #ebeced;
+}
+
+.serverStatus {
+    width: 60px;
+    text-align: center;
+}
+
+.serverStatusVip {
+    background-color: orange;
+    text-align: center;
+    color: white;
+    border-radius: 5px;
+}
+
+.serverStatusNormal {
+    color: #8c8f99;
+}
+
+.serverUrl {
+    width: 180px;
+    text-align: left;
+}
+
+.serverRate {
+    width: 50px;
+    text-align: left;
+}
+
+.serverChronicle {
+    width: 80px;
+}
+
+.serverDate {
+    width: 100px;
+}
+
+.serverDateToday {
+    width: 100px;
+    background-color: #dbf6b6;
+    border-radius: 3px;
+    font-weight: bolder;
+    color: #5d9e0c;
+}
+
+.serverDateTomorrow {
+    width: 100px;
+    background-color: #adc5e7;
+    border-radius: 3px;
+    font-weight: bolder;
+    color: #5a71ac;
+}
+
+.serverDateYesterday {
+    width: 100px;
+    background-color: #d8dcd7;
+    border-radius: 3px;
+    font-weight: bolder;
+    color: #8b8b88;
+}

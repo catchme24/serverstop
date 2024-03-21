@@ -1,0 +1,144 @@
+.container {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(25, 23, 38, 0.73);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+
+    padding: 10px 40px;
+}
+
+.formInput {
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.title {
+    font-size: 18px;
+    text-align: center;
+    margin-top: 10px;
+    color: #fdfdfd;
+}
+
+.error {
+    width: 100%;
+    text-align: center;
+    color: #d93636;
+    margin-top: 10px;
+}
+
+.success {
+    width: 100%;
+    text-align: center;
+    color: #50ac66;
+    margin-top: 10px;
+}
+
+.inputsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.buttonLoginLoading {
+    position: relative;
+    z-index: 0;
+    height: 40px;
+    width: 100%;
+    border-radius: 15px;
+    background-color: rgb(255, 255, 255);
+    overflow: hidden;
+}
+
+.buttonLoginLoading::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    width: 150%;
+    height: 300%;
+    left: -25%;
+    top: -100%;
+    background-image: conic-gradient(#ff1111, 30%, #ffffff);
+    border-radius: 10px;
+    background-repeat: no-repeat;
+    animation: myAnimate 4s infinite;
+}
+
+.buttonLoginLoading::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    left: 4px;
+    top: 4px;
+    width: calc(100% - 8px);
+    height: calc(100% - 8px);
+    background: #ffffff;
+    border-radius: 10px;
+}
+
+.buttonLoginLoading:disabled:hover {
+    cursor: pointer;
+}
+
+@keyframes myAnimate {
+    0% {
+        transform-origin: center center;
+        rotate: 1turn;
+        animation-timing-function: linear;
+        transform: scaleY(100%);
+    }
+    5% {
+        transform-origin: center center;
+        animation-timing-function: ease-in;
+        transform: scaleY(400%);
+    }
+    50% {
+        transform-origin: center center;
+        animation-timing-function: linear;
+        transform: scaleY(100%);
+    }
+    55% {
+        transform-origin: center center;
+        animation-timing-function: ease-in;
+        transform: scaleY(400%);
+    }
+    100% {
+        transform-origin: center center;
+        animation-timing-function: linear;
+        transform: scaleY(100%);
+    }
+}
+
+.buttonLogin {
+    height: 40px;
+    width: 100%;
+    border-radius: 15px;
+    padding: 10px;
+    background-color: rgb(161, 159, 159);
+    transition: background-color 0.3s linear;
+}
+
+
+.buttonLogin:hover {
+    cursor: pointer;
+    background-color: #ffffff;
+}
+
+.buttonRegistration {
+    height: 40px;
+    width: 100%;
+    border-radius: 15px;
+    background-color: rgb(161, 159, 159);
+    padding: 10px;
+    transition: background-color 0.3s linear;
+}
+
+.buttonRegistration:hover {
+    cursor: pointer;
+    background-color: #ffffff;
+}
+

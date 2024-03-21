@@ -1,0 +1,105 @@
+input {
+    all: unset;
+}
+
+.input {
+    color: black;
+    width: 100%;
+}
+
+.textFieldContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0.7em;
+    border-radius: 0.5em;
+    /*border: 1px black solid;*/
+}
+
+.inputContainerNotEmpty {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    padding: 1em;
+    border: 1px black solid;
+    border-radius: 0.5em;
+    position: relative;
+}
+
+.inputContainerNotEmpty:hover {
+    cursor: text;
+}
+
+.inputContainerNotEmpty::after {
+    content: attr(placeholder);
+    background-color: white;
+    height: 1em;
+    line-height: 1em;
+    padding: 0em 0.3em;
+    position:absolute;
+    font-size: 0.7em;
+    top: calc(-0.6em);
+    left: 2em;
+}
+
+.inputContainer {
+    width: 100%;
+    height: 100%;
+    padding: 1em;
+    border: 1px black solid;
+    border-radius: 0.5em;
+    position: relative;
+}
+
+.inputContainer:hover {
+    cursor: text;
+}
+
+.inputContainer::after {
+    content: attr(placeholder);
+    position:absolute;
+    height: 1em;
+    line-height: 1em;
+    display: flex;
+    background-color: white;
+    top: calc(50% - 0.5em);
+    left: 1em;
+    transition-property: top, left, font-size, padding;
+    transition-duration: 0.4s;
+    transition-timing-function: ease;
+}
+
+.inputContainer:focus-within::after {
+    content: attr(placeholder);
+    position:absolute;
+    font-size: 0.7em;
+    size: auto;
+    padding: 0 0.3em;
+    top: calc(-0.6em);
+    left: 2em;
+}
+
+.error {
+    color: red;
+    padding-left: 1em;
+    padding-top: 0.3em;
+    font-size: 0.8em;
+}
+
+.inputContainerError {
+    border-color: red;
+    color: red;
+}
+
+.inputContainerOkUnfocused {
+    border-color: #a6afb1;
+}
+
+.inputContainerOkUnfocused:hover {
+    border-color: #1d2428;
+}
+
+.inputContainerOkFocused {
+    border-color: #38a8f3;
+    color: #38a8f3;
+}

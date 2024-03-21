@@ -1,0 +1,16 @@
+.banner {
+    position: absolute;
+    color: transparent;
+    top: 60px;
+    width: 100%;
+    height: calc(300px + 40%);
+    min-height: 400px;
+    max-height: 1200px;
+    z-index: -1;
+    /*background: center bottom / 100% 450px no-repeat, url("../../img/main.jpg") transparent no-repeat 50% 0 / cover;*/
+    background: linear-gradient(180deg, rgba(15, 13, 26, 0) 0%, #0F0D1A 100%) center bottom / 100% 450px no-repeat, url("../../img/main.jpg") transparent no-repeat 50% 0 / cover;;
+}
+
+.banner:hover {
+    cursor: pointer;
+}

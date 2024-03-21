@@ -1,0 +1,123 @@
+.container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 1px #ecafdf solid;
+    padding: 1em;
+    border-radius: 1em;
+}
+
+.title {
+    text-align: center;
+}
+
+.buttonsContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 30px;
+}
+
+.error {
+    width: 100%;
+    color: #d93636;
+}
+
+.formTextField {
+    background-color: white;
+    border-radius: 10px;
+}
+
+.formButton {
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #c984f1;
+    color: #262623;
+    font-size: 15px;
+    transition: background-color 0.2s linear;
+}
+
+.formButton:disabled {
+    cursor: auto;
+    background-color: #d6b1e5;
+}
+
+.formButton:disabled:hover {
+    cursor: auto;
+    background-color: #d6b1e5;
+}
+
+.formButton:hover {
+    cursor: pointer;
+    background-color: #a243db;
+}
+
+.buttonSaveLoading {
+    position: relative;
+    z-index: 0;
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    overflow: hidden;
+}
+
+.buttonSaveLoading::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    width: 150%;
+    height: 300%;
+    left: -25%;
+    top: -100%;
+    background-image: conic-gradient(#ff1111, 30%, #ffffff);
+    border-radius: 10px;
+    background-repeat: no-repeat;
+    animation: myAnimate 4s infinite;
+}
+
+.buttonSaveLoading::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    left: 4px;
+    top: 4px;
+    width: calc(100% - 8px);
+    height: calc(100% - 8px);
+    background: #ffffff;
+    border-radius: 10px;
+}
+
+.buttonSaveLoading:disabled:hover {
+    cursor: pointer;
+}
+
+@keyframes myAnimate {
+    0% {
+        transform-origin: center center;
+        rotate: 1turn;
+        animation-timing-function: linear;
+        transform: scaleY(100%);
+    }
+    5% {
+        transform-origin: center center;
+        animation-timing-function: ease-in;
+        transform: scaleY(400%);
+    }
+    50% {
+        transform-origin: center center;
+        animation-timing-function: linear;
+        transform: scaleY(100%);
+    }
+    55% {
+        transform-origin: center center;
+        animation-timing-function: ease-in;
+        transform: scaleY(400%);
+    }
+    100% {
+        transform-origin: center center;
+        animation-timing-function: linear;
+        transform: scaleY(100%);
+    }
+}

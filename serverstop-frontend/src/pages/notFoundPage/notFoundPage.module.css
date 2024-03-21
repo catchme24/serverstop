@@ -1,0 +1,15 @@
+.notFoundPageContainer {
+    background-color: white;
+    padding: 20px;
+    border: 2px red solid;
+
+    height: 200px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.inputContainer {
+
+}

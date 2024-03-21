@@ -1,0 +1,34 @@
+server:
+  port: 8080
+  ssl:
+    enabled: false
+
+logging:
+  level:
+    com.example: debug
+
+spring:
+  flyway:
+    enabled: true
+    out-of-order: false
+    locations: classpath:/db/migration
+    baseline-version: 1
+    table: tr_flyway_schema_history
+    baseline-on-migrate: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: serverstop-app
+    password: serverstop123
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database: "postgresql"
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+
+topservers:
+  security:
+    token-lifetime: 86_400_000
+    secret-key: GFJIGREJGI453GIOJ345GJREGIO43GJrgoI234GERJIGOE9534VMMVJRJITERRE529GMREoi32GIOMR908GREIOJg5345IGOJREIJOG23JGIOJERG134tGJROIgje54GIORJ2WOPERI23
+
+

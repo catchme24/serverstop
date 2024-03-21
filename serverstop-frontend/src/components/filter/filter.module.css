@@ -1,0 +1,53 @@
+.filter {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: white;
+}
+
+.dropdownMenuContainer {
+    /*background-color: #f5970a;*/
+}
+
+.dropdownMenu {
+    width: 100%;
+    border-radius: 15px;
+    font-size: 15px;
+    background-color: #3b3d47;
+    border-color: #3b3d47;
+    padding: 10px;
+    color: white;
+    outline: none;
+    border-width: 2px;
+}
+
+.dropdownMenu:hover {
+    border-color: orange;
+    border-width: 2px;
+}
+
+.dropdownMenu:checked {
+    background-color: deeppink;
+}
+
+.dropdownMenu:focus:after {
+    border-radius: 15px;
+    font-size: 20px;
+    background-color: orangered;
+    padding: 10px;
+    color: white;
+    outline: none;
+}
+
+.searchButton {
+    padding: 10px;
+    border-radius: 15px;
+    font-size: 15px;
+    background-color: #3b3d47;
+    color: white;
+}
+
+.searchButton:hover {
+    background-color: orange;
+    color: black;
+}

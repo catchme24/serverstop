@@ -1,0 +1,23 @@
+.registrationPage {
+    display: flex;
+    min-height: 800px;
+    background-color: #191726;
+    border-radius: 15px;
+}
+
+.registrationPageInner {
+    display: flex;
+    justify-content: center;
+    background: url("../../img/lineage-2-l2-lineyka-mmorpg.jpg") no-repeat;
+    background-size: 100% 100%;
+    border-radius: 15px;
+    margin: 20px;
+    padding-top: 100px;
+    padding-bottom: 300px;
+    width: 100%;
+    font-size: 15px;
+}
+
+.registrationForm {
+
+}
