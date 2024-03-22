@@ -34,7 +34,6 @@ public class User extends BaseEntity {
                 ", updatedAt=" + getUpdatedAt() +
                 ", username=" + username +
                 ", password=" + password +
-                ", servers=" + servers +
                 ", roles=" + roles +
                 '}';
     }

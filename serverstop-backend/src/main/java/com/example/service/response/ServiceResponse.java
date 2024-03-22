@@ -1,16 +1,17 @@
 package com.example.service.response;
 
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
 
 import java.util.List;
 
 @Data
-@Builder
-public class ServiceResponse {
+@AllArgsConstructor
+public class ServiceResponse<D> {
 
     private HttpStatus httpStatus;
     private String errorMessage;
-    private List<?> content;
+    private List<D> content;
+
 }

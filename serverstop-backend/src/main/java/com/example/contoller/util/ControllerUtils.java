@@ -7,8 +7,8 @@ import org.springframework.validation.BindingResult;
 
 public class ControllerUtils {
 
-    public static ResponseEntity<?> mapServiceResonseToHttpResponse(ServiceResponse serviceResponse) {
-        Object requestBody = serviceResponse.getErrorMessage() == null ? serviceResponse.getContent() : serviceResponse.getErrorMessage();
+    public static <D> ResponseEntity<?> mapServiceResonseToHttpResponse(ServiceResponse<D> serviceResponse) {
+        Object requestBody = serviceResponse.getErrorMessage().equals("") ? serviceResponse.getContent() : serviceResponse.getErrorMessage();
         return ResponseEntity.status(serviceResponse.getHttpStatus()).body(requestBody);
     }
 
@@ -18,14 +18,12 @@ public class ControllerUtils {
                 .append(br.getObjectName())
                 .append(" ");
         br.getFieldErrors()
-                .stream()
                 .forEach(filedError -> sb
                         .append("\n")
                         .append("Error in field with name: ")
                         .append(filedError.getField())
                         .append(", error: ")
-                        .append(filedError.getDefaultMessage())
-                        .toString());
+                        .append(filedError.getDefaultMessage()));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(sb.toString());
     }
 }

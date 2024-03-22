@@ -1,6 +1,7 @@
 package com.example.unit.service;
 
 
+import com.example.dto.UserDto;
 import com.example.entity.Role;
 import com.example.entity.Server;
 import com.example.entity.User;
@@ -8,25 +9,27 @@ import com.example.repository.UserRepository;
 import com.example.service.UserService;
 import com.example.service.response.ServiceResponse;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -34,19 +37,23 @@ public class UserServiceTest {
 
     @Mock
     private UserRepository userRepository;
-    @Mock
-    private ModelMapper mapper;
-    @Mock
-    private PasswordEncoder passwordEncoder;
+
+    @Spy
+    private ModelMapper mapper = new ModelMapper();
+    @Spy
+    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     @InjectMocks
     private UserService userService;
 
     private List<User> users;
     private List<Server> servers;
 
+    private List<UserDto> userDtos;
+
 
     @BeforeEach
     public void setUp() {
+
         Server server1 = new Server();
         server1.setId(1L);
         server1.setServerRate("x123");
@@ -122,39 +129,196 @@ public class UserServiceTest {
         user3.setServers(List.of(server6));
         server6.setOwner(user3);
 
+        UserDto userDto1 = new UserDto();
+        userDto1.setUsername("user1");
+        userDto1.setPassword("user1");
+        userDto1.setRoles(Set.of(Role.USER));
+
+
         users = new ArrayList<>(List.of(user1, user2, user3));
         servers = new ArrayList<>(List.of(server1, server2, server3, server4, server5, server6));
+        userDtos = new ArrayList<>(List.of(userDto1));
     }
 
     @Test
     void getAll_haveUsers() {
-        when(userRepository.findAll()).thenReturn(users);
-        ServiceResponse response = userService.getAll(null);
+        List<User> dbUsers = this.users;
+        System.out.println(dbUsers);
+
+        when(userRepository.findAll()).thenReturn(dbUsers);
+
+        ServiceResponse<UserDto> response = userService.getAll(null);
+
         Assertions.assertThat(response.getHttpStatus()).isEqualTo(HttpStatus.OK);
+        Assertions.assertThat(response.getErrorMessage()).isBlank();
         Assertions.assertThat(response.getContent().size()).isEqualTo(3);
+        Assertions.assertThat(response.getContent()).hasOnlyElementsOfType(UserDto.class);
     }
 
     @Test
     void getAll_zeroUsers() {
-        when(userRepository.findAll()).thenReturn(new ArrayList<User>());
-        ServiceResponse response = userService.getAll(null);
+        List<User> dbUsers = new ArrayList<User>();
+
+        when(userRepository.findAll()).thenReturn(dbUsers);
+
+        ServiceResponse<UserDto> response = userService.getAll(null);
+
         Assertions.assertThat(response.getContent().size()).isEqualTo(0);
+        Assertions.assertThat(response.getErrorMessage()).isBlank();
         Assertions.assertThat(response.getHttpStatus()).isEqualTo(HttpStatus.OK);
     }
 
     @Test
-    void get() {
+    void get_existingUser() {
+        User dbUser = users.get(0);
+        Long dbUserId = dbUser.getId();
+
+        when(userRepository.findById(dbUserId)).thenReturn(Optional.of(dbUser));
+
+        ServiceResponse<UserDto> response = userService.get(dbUserId, null);
+
+        Assertions.assertThat(response.getContent().size()).isEqualTo(1);
+        Assertions.assertThat(response.getContent().get(0).getId()).isEqualTo(dbUserId);
+        Assertions.assertThat(response.getErrorMessage()).isBlank();
+        Assertions.assertThat(response.getHttpStatus()).isEqualTo(HttpStatus.OK);
     }
 
     @Test
-    void add() {
+    void get_notExistingUser() {
+        User dbUser = users.get(0);
+        Long userId = dbUser.getId();
+
+        when(userRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        ServiceResponse<UserDto> response = userService.get(userId, null);
+
+        Assertions.assertThat(response.getContent().size()).isEqualTo(0);
+        Assertions.assertThat(response.getErrorMessage()).isNotBlank();
+        Assertions.assertThat(response.getHttpStatus()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
     @Test
-    void update() {
+    void add_withId() {
+        Long newUserId = 23L;
+        UserDto userToBeAdded = userDtos.get(0);
+        userToBeAdded.setId(newUserId);
+
+        ServiceResponse<UserDto> response = userService.add(userToBeAdded, null);
+
+        Assertions.assertThat(response.getContent().size()).isEqualTo(0);
+        Assertions.assertThat(response.getErrorMessage()).isNotBlank();
+        Assertions.assertThat(response.getHttpStatus()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
     @Test
-    void delete() {
+    void add_existingUserWithOutId() {
+        Long newUserId = null;
+        UserDto userToBeAdded = userDtos.get(0);
+        userToBeAdded.setId(newUserId);
+
+        when(userRepository.existsByUsername(any(String.class))).thenReturn(true);
+
+        ServiceResponse<UserDto> response = userService.add(userToBeAdded, null);
+
+        Assertions.assertThat(response.getContent().size()).isEqualTo(0);
+        Assertions.assertThat(response.getErrorMessage()).isNotBlank();
+        Assertions.assertThat(response.getHttpStatus()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    void add_notExistingUserWithOutId() {
+        Long newUserId = null;
+        UserDto userToBeAdded = userDtos.get(0);
+        User savedUser = users.get(0);
+        userToBeAdded.setId(newUserId);
+
+        when(userRepository.save(any(User.class))).thenReturn(savedUser);
+        when(userRepository.existsByUsername(any(String.class))).thenReturn(false);
+
+        ServiceResponse<UserDto> response = userService.add(userToBeAdded, null);
+
+        Assertions.assertThat(response.getContent().size()).isEqualTo(1);
+        Assertions.assertThat(response.getContent().get(0).getId()).isEqualTo(savedUser.getId());
+        Assertions.assertThat(response.getErrorMessage()).isBlank();
+        Assertions.assertThat(response.getHttpStatus()).isEqualTo(HttpStatus.CREATED);
+    }
+
+    @Test
+    void update_withOutId() {
+        Long newUserId = null;
+        UserDto userToBeUpdated = userDtos.get(0);
+        userToBeUpdated.setId(newUserId);
+
+        ServiceResponse<UserDto> response = userService.update(userToBeUpdated, null);
+
+        Assertions.assertThat(response.getContent().size()).isEqualTo(0);
+        Assertions.assertThat(response.getErrorMessage()).isNotBlank();
+        Assertions.assertThat(response.getHttpStatus()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    void update_existingUserWithId() {
+        Long id = 1L;
+        String newUsername = "NEW USER NAME";
+        UserDto userToBeUpdated = userDtos.get(0);
+        User existingUser = users.get(0);
+        User updatedUser = new User();
+        mapper.map(existingUser, updatedUser);
+        updatedUser.setUsername(newUsername);
+        userToBeUpdated.setUsername(newUsername);
+        userToBeUpdated.setId(id);
+
+        when(userRepository.findById(anyLong())).thenReturn(Optional.of(existingUser));
+        when(userRepository.save(any(User.class))).thenReturn(updatedUser);
+
+        ServiceResponse<UserDto> response = userService.update(userToBeUpdated, null);
+
+        Assertions.assertThat(response.getContent().size()).isEqualTo(1);
+        Assertions.assertThat(response.getContent().get(0).getId()).isEqualTo(userToBeUpdated.getId());
+        Assertions.assertThat(response.getContent().get(0).getUsername()).isEqualTo(newUsername);
+        Assertions.assertThat(response.getErrorMessage()).isBlank();
+        Assertions.assertThat(response.getHttpStatus()).isEqualTo(HttpStatus.ACCEPTED);
+    }
+
+    @Test
+    void update_notExistingUserWithId() {
+        Long id = 1L;
+        String newUsername = "NEW USER NAME";
+        UserDto userToBeUpdated = userDtos.get(0);
+
+        userToBeUpdated.setUsername(newUsername);
+        userToBeUpdated.setId(id);
+
+        when(userRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        ServiceResponse<UserDto> response = userService.update(userToBeUpdated, null);
+
+        Assertions.assertThat(response.getContent().size()).isEqualTo(0);
+        Assertions.assertThat(response.getErrorMessage()).isNotBlank();
+        Assertions.assertThat(response.getHttpStatus()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    void delete_withOutId() {
+        Long deletingUserId = null;
+
+        ServiceResponse<UserDto> response = userService.delete(deletingUserId, null);
+
+        Assertions.assertThat(response.getContent().size()).isEqualTo(0);
+        Assertions.assertThat(response.getErrorMessage()).isNotBlank();
+        Assertions.assertThat(response.getHttpStatus()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    void delete_notExistingUserWithId() {
+        Long id = 111L;
+
+        when(userRepository.existsById(anyLong())).thenReturn(false);
+
+        ServiceResponse<UserDto> response = userService.delete(id, null);
+
+        Assertions.assertThat(response.getContent().size()).isEqualTo(0);
+        Assertions.assertThat(response.getErrorMessage()).isBlank();
+        Assertions.assertThat(response.getHttpStatus()).isEqualTo(HttpStatus.OK);
     }
 }

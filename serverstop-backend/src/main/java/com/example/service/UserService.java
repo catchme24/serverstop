@@ -3,20 +3,19 @@ package com.example.service;
 import com.example.dto.UserDto;
 import com.example.entity.Role;
 import com.example.entity.User;
+import com.example.repository.UserRepository;
 import com.example.service.response.ServiceMessage;
 import com.example.service.response.ServiceResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import com.example.repository.UserRepository;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -33,7 +32,7 @@ public class UserService implements ApiService<UserDto> {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public ServiceResponse getAll(UserDto principal) {
+    public ServiceResponse<UserDto> getAll(UserDto principal) {
         log.debug("Start finding all users");
         List<UserDto> findedUsers = userRepository.findAll()
                 .stream()
@@ -44,22 +43,21 @@ public class UserService implements ApiService<UserDto> {
     }
 
     @Override
-    public ServiceResponse get(Long id, UserDto principal) {
+    public ServiceResponse<UserDto> get(Long id, UserDto principal) {
         log.debug("Start finding user with id={}", id);
-        UserDto findedUser;
         Optional<User> user  = userRepository.findById(id);
         if (user.isEmpty()) {
             log.warn("Сannot find user with id={}", id);
             return errorResponse(HttpStatus.NOT_FOUND, ServiceMessage.SHOULD_HAS_EXISTING_ID.name());
         }
-        findedUser = mapper.map(user.get(), UserDto.class);
+        UserDto findedUser = mapper.map(user.get(), UserDto.class);
         log.debug("End finging user with id={}", id);
         return goodResponse(HttpStatus.OK, findedUser);
     }
 
     @Override
     @Transactional
-    public ServiceResponse add(UserDto userToBeAdded, UserDto principal) {
+    public ServiceResponse<UserDto> add(UserDto userToBeAdded, UserDto principal) {
         log.debug("Start adding new user: {}", userToBeAdded);
         if (userToBeAdded.getId() != null) {
             log.warn("Сannot add new user: {}, new user should not has id", userToBeAdded);
@@ -78,7 +76,7 @@ public class UserService implements ApiService<UserDto> {
 
     @Override
     @Transactional
-    public ServiceResponse update(UserDto userToBeUpdated, UserDto principal) {
+    public ServiceResponse<UserDto> update(UserDto userToBeUpdated, UserDto principal) {
         log.debug("Start updating user with id={}", userToBeUpdated.getId());
         if (userToBeUpdated.getId() == null) {
             log.warn("Сannot update user with id: {}, updated user should has existing id", userToBeUpdated.getId());
@@ -99,7 +97,7 @@ public class UserService implements ApiService<UserDto> {
 
     @Override
     @Transactional
-    public ServiceResponse delete(Long id, UserDto principal) {
+    public ServiceResponse<UserDto> delete(Long id, UserDto principal) {
         log.debug("Start deleting user with id={}", id);
         if (id == null) {
             log.warn("Сannot delete user with id: {}, deleted user should has existing id", id);
@@ -111,7 +109,7 @@ public class UserService implements ApiService<UserDto> {
         }
         userRepository.deleteById(id);
         log.debug("End deleting user with id={}", id);
-        return goodResponse(HttpStatus.OK, null);
+        return goodResponse(HttpStatus.OK, new ArrayList<>());
     }
 
 }

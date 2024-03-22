@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -33,7 +34,6 @@ public class Server extends BaseEntity {
                 ", chronicle=" + chronicle +
                 ", serverRate=" + serverRate +
                 ", domain=" + domain +
-                ", owner=" + owner +
                 '}';
     }
 }

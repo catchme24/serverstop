@@ -3,6 +3,8 @@ package com.example.service;
 import com.example.dto.UserDto;
 import com.example.service.response.ServiceResponse;
 
+import java.util.SortedMap;
+
 public interface ApiService<D> extends ResponseProducer<D> {
 
     ServiceResponse getAll(UserDto principal);

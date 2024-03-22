@@ -21,21 +21,21 @@ public class UsersController {
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> get(@PathVariable("id") Long id) {
-        ServiceResponse sr = userService.get(id, null);
+        ServiceResponse<UserDto> sr = userService.get(id, null);
         return ControllerUtils.mapServiceResonseToHttpResponse(sr);
     }
 
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> add(@RequestBody UserDto user) {
-        ServiceResponse sr = userService.add(user, null);
+        ServiceResponse<UserDto> sr = userService.add(user, null);
         return ControllerUtils.mapServiceResonseToHttpResponse(sr);
     }
 
     @PutMapping
     @PreAuthorize("hasAuthority('ADMIN')")
     ResponseEntity<?> update(@RequestBody UserDto user) {
-        ServiceResponse sr = userService.update(user, null);
+        ServiceResponse<UserDto> sr = userService.update(user, null);
         return ControllerUtils.mapServiceResonseToHttpResponse(sr);
     }
 }
