@@ -20,7 +20,7 @@ public class UsersController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<?> get(@PathVariable("id") Long id) {
+    public ResponseEntity<?> getById(@PathVariable("id") Long id) {
         ServiceResponse<UserDto> sr = userService.get(id, null);
         return ControllerUtils.mapServiceResonseToHttpResponse(sr);
     }

@@ -24,6 +24,7 @@ spring:
 
 
 
+
 topservers:
   security:
     token-lifetime: 86_400_000
