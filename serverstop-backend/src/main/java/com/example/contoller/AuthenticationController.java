@@ -21,11 +21,11 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserDto userDto) {
-        return ControllerUtils.mapServiceResonseToHttpResponse(authenticationService.login(userDto));
+        return ControllerUtils.mapServiceResponseToHttpResponse(authenticationService.login(userDto));
     }
 
     @PostMapping("/registration")
     public ResponseEntity<?> registration(@RequestBody UserDto userDto) {
-        return ControllerUtils.mapServiceResonseToHttpResponse(authenticationService.registration(userDto));
+        return ControllerUtils.mapServiceResponseToHttpResponse(authenticationService.registration(userDto));
     }
 }

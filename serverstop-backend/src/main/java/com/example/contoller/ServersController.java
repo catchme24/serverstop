@@ -26,13 +26,13 @@ public class ServersController {
     @GetMapping
     public ResponseEntity<?> getAll() {
         ServiceResponse sr = serverService.getAll(null);
-        return ControllerUtils.mapServiceResonseToHttpResponse(sr);
+        return ControllerUtils.mapServiceResponseToHttpResponse(sr);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> get(@PathVariable("id") Long id) {
         ServiceResponse sr = serverService.get(id, null);
-        return ControllerUtils.mapServiceResonseToHttpResponse(sr);
+        return ControllerUtils.mapServiceResponseToHttpResponse(sr);
     }
 
     @GetMapping("/filter")
@@ -48,7 +48,7 @@ public class ServersController {
         } else {
             sr = serverService.getAllByChronicle(chronicle);
         }
-        return ControllerUtils.mapServiceResonseToHttpResponse(sr);
+        return ControllerUtils.mapServiceResponseToHttpResponse(sr);
     }
 
     @PostMapping
@@ -61,7 +61,7 @@ public class ServersController {
             return ControllerUtils.mapBindingResultToHttpResponse(br);
         }
         ServiceResponse sr = serverService.add(server, (UserDto) authentication.getPrincipal());
-        return ControllerUtils.mapServiceResonseToHttpResponse(sr);
+        return ControllerUtils.mapServiceResponseToHttpResponse(sr);
     }
 
     @PutMapping
@@ -74,7 +74,7 @@ public class ServersController {
            return ControllerUtils.mapBindingResultToHttpResponse(br);
         }
         ServiceResponse sr = serverService.update(server, (UserDto) authentication.getPrincipal());
-        return ControllerUtils.mapServiceResonseToHttpResponse(sr);
+        return ControllerUtils.mapServiceResponseToHttpResponse(sr);
     }
 
     @DeleteMapping("/{id}")
@@ -83,7 +83,7 @@ public class ServersController {
                                 Authentication authentication) {
 
         ServiceResponse sr = serverService.delete(id, (UserDto) authentication.getPrincipal());
-        return ControllerUtils.mapServiceResonseToHttpResponse(sr);
+        return ControllerUtils.mapServiceResponseToHttpResponse(sr);
     }
 
     @GetMapping("/me")
@@ -91,19 +91,19 @@ public class ServersController {
     public ResponseEntity<?> getAllMyServers(Authentication authentication) {
 
         ServiceResponse sr = serverService.getAllMyServers((UserDto) authentication.getPrincipal());
-        return ControllerUtils.mapServiceResonseToHttpResponse(sr);
+        return ControllerUtils.mapServiceResponseToHttpResponse(sr);
     }
 
     @GetMapping("/allchronicles")
     public ResponseEntity<?> getAllChronicles(Authentication authentication) {
         ServiceResponse sr = serverService.getAllChronicles();
-        return ControllerUtils.mapServiceResonseToHttpResponse(sr);
+        return ControllerUtils.mapServiceResponseToHttpResponse(sr);
     }
 
     @GetMapping("/allrates")
     public ResponseEntity<?> getAllRates(Authentication authentication) {
         ServiceResponse sr = serverService.getAllRates();
-        return ControllerUtils.mapServiceResonseToHttpResponse(sr);
+        return ControllerUtils.mapServiceResponseToHttpResponse(sr);
     }
 
 }

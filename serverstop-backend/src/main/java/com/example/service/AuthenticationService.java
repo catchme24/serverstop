@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class AuthenticationService implements ResponseProducer {
 
     private final AuthenticationManager authenticationManager;

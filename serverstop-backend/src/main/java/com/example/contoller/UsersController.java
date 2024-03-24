@@ -22,20 +22,20 @@ public class UsersController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> getById(@PathVariable("id") Long id) {
         ServiceResponse<UserDto> sr = userService.get(id, null);
-        return ControllerUtils.mapServiceResonseToHttpResponse(sr);
+        return ControllerUtils.mapServiceResponseToHttpResponse(sr);
     }
 
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> add(@RequestBody UserDto user) {
         ServiceResponse<UserDto> sr = userService.add(user, null);
-        return ControllerUtils.mapServiceResonseToHttpResponse(sr);
+        return ControllerUtils.mapServiceResponseToHttpResponse(sr);
     }
 
     @PutMapping
     @PreAuthorize("hasAuthority('ADMIN')")
     ResponseEntity<?> update(@RequestBody UserDto user) {
         ServiceResponse<UserDto> sr = userService.update(user, null);
-        return ControllerUtils.mapServiceResonseToHttpResponse(sr);
+        return ControllerUtils.mapServiceResponseToHttpResponse(sr);
     }
 }

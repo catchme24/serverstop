@@ -7,9 +7,11 @@ import org.springframework.validation.BindingResult;
 
 public class ControllerUtils {
 
-    public static <D> ResponseEntity<?> mapServiceResonseToHttpResponse(ServiceResponse<D> serviceResponse) {
+    public static <D> ResponseEntity<?> mapServiceResponseToHttpResponse(ServiceResponse<D> serviceResponse) {
         Object requestBody = serviceResponse.getErrorMessage().equals("") ? serviceResponse.getContent() : serviceResponse.getErrorMessage();
-        return ResponseEntity.status(serviceResponse.getHttpStatus()).body(requestBody);
+        return ResponseEntity
+                .status(serviceResponse.getHttpStatus())
+                .body(requestBody);
     }
 
     public static ResponseEntity<?> mapBindingResultToHttpResponse(BindingResult br) {
@@ -24,6 +26,8 @@ public class ControllerUtils {
                         .append(filedError.getField())
                         .append(", error: ")
                         .append(filedError.getDefaultMessage()));
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(sb.toString());
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(sb.toString());
     }
 }
