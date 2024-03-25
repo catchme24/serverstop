@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -24,7 +25,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     private static final String AUTHORIZATION = "Authorization";
     private static final String PREFIX_TOKEN = "Bearer ";
 
-    private final UserDetailsServiceImpl userDetailsService;
+    private final UserDetailsService userDetailsService;
 
     private final JwtTokenUtils jwtTokenProvider;
 
@@ -47,7 +48,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
             } else {
                 log.warn("The token is missing or invalid");
-                SecurityContextHolder.clearContext();
+//                SecurityContextHolder.clearContext();
             }
         } catch (Exception e) {
             log.warn("Authentication is failed. Details: {}", e.getMessage());
