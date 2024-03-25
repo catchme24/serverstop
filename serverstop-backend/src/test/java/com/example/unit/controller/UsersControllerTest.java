@@ -1,13 +1,11 @@
 package com.example.unit.controller;
 
 import com.example.contoller.UsersController;
-import com.example.contoller.util.ControllerUtils;
 import com.example.dto.UserDto;
 import com.example.entity.Role;
 import com.example.service.UserService;
 import com.example.service.response.ServiceMessage;
 import com.example.service.response.ServiceResponse;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

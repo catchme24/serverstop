@@ -329,32 +329,4 @@ class ServerServiceTest {
         Assertions.assertThat(response.getErrorMessage()).isBlank();
         Assertions.assertThat(response.getHttpStatus()).isEqualTo(HttpStatus.ACCEPTED);
     }
-
-    @Test
-    void delete() {
-    }
-
-    @Test
-    void getAllByChronicleAndServerRate() {
-    }
-
-    @Test
-    void getAllByServerRate() {
-    }
-
-    @Test
-    void getAllByChronicle() {
-    }
-
-    @Test
-    void getAllChronicles() {
-    }
-
-    @Test
-    void getAllRates() {
-    }
-
-    @Test
-    void getAllMyServers() {
-    }
 }
