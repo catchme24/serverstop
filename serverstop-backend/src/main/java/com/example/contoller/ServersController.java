@@ -1,20 +1,19 @@
 package com.example.contoller;
 
 
+import com.example.contoller.util.ControllerUtils;
 import com.example.dto.ServerDto;
 import com.example.dto.UserDto;
+import com.example.service.ServerService;
+import com.example.service.response.ServiceResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import com.example.contoller.util.ControllerUtils;
-import com.example.service.ServerService;
-import com.example.service.response.ServiceResponse;
 
 @RestController
 @RequiredArgsConstructor
@@ -54,18 +53,13 @@ public class ServersController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('USER')")
-//    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> add(@Valid @RequestBody ServerDto server,
                                  BindingResult br,
                                  Authentication authentication) {
 
-        log.debug("Start adding servers");
-        System.out.println(authentication);
         if (br.hasErrors()) {
             return ControllerUtils.mapBindingResultToHttpResponse(br);
         }
-//        UserDto userDto = new UserDto();
-//        userDto.setId(1L);
         ServiceResponse sr = serverService.add(server, (UserDto) authentication.getPrincipal());
         log.debug("End adding servers");
         return ControllerUtils.mapServiceResponseToHttpResponse(sr);

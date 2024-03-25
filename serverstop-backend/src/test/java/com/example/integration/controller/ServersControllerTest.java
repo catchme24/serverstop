@@ -8,27 +8,17 @@ import com.example.dto.ServerDto;
 import com.example.dto.UserDto;
 import com.example.entity.Role;
 import com.example.security.JwtTokenUtils;
-import com.example.security.UserDetailsServiceImpl;
 import com.example.service.ServerService;
 import com.example.service.response.ServiceResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.security.authentication.TestingAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.test.context.support.TestExecutionEvent;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.security.test.context.support.WithSecurityContext;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -40,12 +30,10 @@ import java.util.List;
 import java.util.Set;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(ServersController.class)
 @Import({ApplicationConfig.class, WebSecurityConfig.class, WebSecurityTestConfig.class})
@@ -70,9 +58,7 @@ class ServersControllerTest {
 
     @BeforeEach
     void setup() {
-//        objectMapper = new ObjectMapper();
         objectMapper.findAndRegisterModules();
-
 
         ServerDto serverDto1 = new ServerDto();
         serverDto1.setId(1L);
@@ -112,12 +98,7 @@ class ServersControllerTest {
     @WithUserDetails(
             value = "user1",
             userDetailsServiceBeanName = "userDetailsService")
-    void add() throws Exception {
-        UserDto user = new UserDto();
-        user.setPassword("user1");
-        user.setUsername("user1");
-        user.setRoles(Set.of(Role.USER));
-
+    void add_dtoWithOutErrors() throws Exception {
         ServerDto serverToBeAdded = serverDtos.get(0);
         Long requestingId = serverToBeAdded.getId();
         ServiceResponse<ServerDto> sr = new ServiceResponse<>(
@@ -137,28 +118,67 @@ class ServersControllerTest {
 
         verify(serverService, times(1)).add(any(), any());
     }
+
     @Test
-    void filter() {
+    @WithUserDetails(
+            value = "user1",
+            userDetailsServiceBeanName = "userDetailsService")
+    void add_dtoWithErrors() throws Exception {
+        ServerDto serverToBeAdded = serverDtos.get(0);
+        Long requestingId = serverToBeAdded.getId();
+        serverToBeAdded.setChronicle("");
+        String requestJson = objectMapper.writeValueAsString(serverToBeAdded);
+        String responseJson = objectMapper.writeValueAsString(Collections.singletonList(serverToBeAdded));
+
+        mockMvc.perform(post(   CONTROLLER_API)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestJson))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$").isString());
     }
 
 
     @Test
-    void update() {
+    @WithUserDetails(
+            value = "user1",
+            userDetailsServiceBeanName = "userDetailsService")
+    void update_dtoWithOutErrors() throws Exception {
+        ServerDto serverToBeAdded = serverDtos.get(0);
+        Long requestingId = serverToBeAdded.getId();
+        ServiceResponse<ServerDto> sr = new ServiceResponse<>(
+                HttpStatus.OK,
+                "",
+                Collections.singletonList(serverToBeAdded));
+        String requestJson = objectMapper.writeValueAsString(serverToBeAdded);
+        String responseJson = objectMapper.writeValueAsString(Collections.singletonList(serverToBeAdded));
+
+        when(serverService.update(any(ServerDto.class), any())).thenReturn(sr);
+
+        mockMvc.perform(put(   CONTROLLER_API)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestJson))
+                .andExpect(status().isOk())
+                .andExpect(content().json(responseJson));
+
+        verify(serverService, times(1)).update(any(), any());
     }
 
     @Test
-    void delete() {
+    @WithUserDetails(
+            value = "user1",
+            userDetailsServiceBeanName = "userDetailsService")
+    void update_dtoWithErrors() throws Exception {
+        ServerDto serverToBeAdded = serverDtos.get(0);
+        Long requestingId = serverToBeAdded.getId();
+        serverToBeAdded.setChronicle("");
+        String requestJson = objectMapper.writeValueAsString(serverToBeAdded);
+        String responseJson = objectMapper.writeValueAsString(Collections.singletonList(serverToBeAdded));
+
+        mockMvc.perform(put(   CONTROLLER_API)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestJson))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$").isString());
     }
 
-    @Test
-    void getAllMyServers() {
-    }
-
-    @Test
-    void getAllChronicles() {
-    }
-
-    @Test
-    void getAllRates() {
-    }
 }
