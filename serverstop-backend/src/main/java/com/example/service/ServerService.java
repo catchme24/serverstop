@@ -3,7 +3,6 @@ package com.example.service;
 import com.example.dto.ServerDto;
 import com.example.dto.UserDto;
 import com.example.entity.Server;
-import com.example.entity.User;
 import com.example.repository.ServerRepository;
 import com.example.repository.UserRepository;
 import com.example.service.response.ServiceMessage;
@@ -11,7 +10,6 @@ import com.example.service.response.ServiceResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -100,12 +98,12 @@ public class ServerService implements ApiService<ServerDto> {
     @Transactional
     public ServiceResponse delete(Long id, UserDto principal) {
         log.debug("Start deleting server with id={}", id);
-        Optional<Server> existingServer = serverRepository.findById(id);
         if (id == null) {
             log.warn("Сannot delete server with id: {}, deleted server should has existing id", id);
             return errorResponse(HttpStatus.BAD_REQUEST, ServiceMessage.SHOULD_HAS_EXISTING_ID.name());
         }
-        if (serverRepository.existsById(id)) {
+        Optional<Server> existingServer = serverRepository.findById(id);
+        if (existingServer.isEmpty()) {
             log.warn("Сannot delete server with id: {}, deleted server should has existing id", id);
             return errorResponse(HttpStatus.NOT_FOUND, ServiceMessage.SHOULD_HAS_EXISTING_ID.name());
         }

@@ -35,7 +35,6 @@ const Language = (props) => {
         <div>
             <div className={style.language}>
                 <p className={style.title}>АНОНСЫ СЕРВЕРОВ LINEAGE 2</p>
-                <Link className={style.menuLink} to={'/profile'} >{'TIK'}</Link>
                 <div className={style.buttons}>
                     {isNightMode()}
                     <div className={style.languageButtons}>

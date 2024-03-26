@@ -43,7 +43,10 @@
 
 .userdataWrapper {
     display: flex;
+    gap: 40px;
+    /*border: red 2px solid;*/
     flex-direction: column;
+    align-items: center;
 }
 
 .profilePageInner {
@@ -62,6 +65,7 @@
     flex-direction: column;
     gap: 10px;
     max-width: 300px;
+    width: 100%;
     justify-content: center;
     align-items: center;
 }
@@ -71,10 +75,14 @@
     height: 100%;
 }
 
-.nameContainer {
+.buttonsContainer {
     display: flex;
     flex-direction: column;
+    justify-items: center;
+    align-content: center;
     gap: 10px;
+    width: 70%;
+    /*border: red 2px solid;*/
     max-width: 300px;
     justify-content: center;
     align-items: center;
@@ -101,6 +109,7 @@
 
 .changeButton {
     padding: 15px;
+    width: 100%;
     border-radius: 10px;
     background-color: #c984f1;
     color: #262623;

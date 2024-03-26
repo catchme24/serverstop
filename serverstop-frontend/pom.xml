@@ -3,15 +3,17 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd"
          xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
+
   <parent>
     <groupId>com.example</groupId>
     <artifactId>serverstop</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
+
   <artifactId>serverstop-frontend</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>serverstop-frontend</name>
-  <description>Study project for React</description>
+  <description>study project</description>
   <packaging>pom</packaging>
 
   <build>

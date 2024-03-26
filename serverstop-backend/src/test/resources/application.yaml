@@ -23,8 +23,6 @@ spring:
       ddl-auto: validate
 
 
-
-
 topservers:
   security:
     token-lifetime: 86_400_000

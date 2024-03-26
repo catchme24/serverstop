@@ -31,10 +31,9 @@ const ProfilePage = (props) => {
                             <div className={style.avatarContainer}>
                                 <img className={style.image} src={image}></img>
                             </div>
-                            <button className={style.changeButton}>Сменить аватар</button>
                         </div>
-                        <div className={style.nameContainer}>
-                            <div>{'ЗАГЛУША'}</div>
+                        <div className={style.buttonsContainer}>
+                            <button className={style.changeButton}>Сменить аватар</button>
                             <button className={style.changeButton}>Сменить имя</button>
                         </div>
                     </div>

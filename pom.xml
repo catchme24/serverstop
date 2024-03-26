@@ -3,20 +3,31 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.0.2</version>
         <relativePath/>
     </parent>
+
     <groupId>com.example</groupId>
     <artifactId>serverstop</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Servers</name>
+    <name>serverstop</name>
     <description>Study project for Spring Boot</description>
     <packaging>pom</packaging>
+
+    <properties>
+        <!--Directory, where static resource files will be placed-->
+        <!--for, e.g, React its 'build'-->
+        <frontendBuildDirectory>build</frontendBuildDirectory>
+        <frontendModule>serverstop-frontend</frontendModule>
+        <backendModule>serverstop-backend</backendModule>
+    </properties>
+
     <modules>
-        <module>serverstop-backend</module>
-        <module>serverstop-frontend</module>
+        <module>${frontendModule}</module>
+        <module>${backendModule}</module>
     </modules>
 </project>
