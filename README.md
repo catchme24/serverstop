@@ -27,7 +27,7 @@ mvn install
 To start the application use:
 
 ```
-java -jar backend/target/study-backend-0.0.1-SNAPSHOT.jar
+java -jar serverstop-backend/target/serverstop-backend-0.0.1-SNAPSHOT.jar
 ```
 
 
@@ -36,4 +36,4 @@ java -jar backend/target/study-backend-0.0.1-SNAPSHOT.jar
 
 You're up, frontend address by default: `localhost:8080/`
 <br />
-Default pre configured users: `user user`
+Default pre configured users: none, create with registration page:)
