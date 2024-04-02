@@ -68,8 +68,8 @@ public class ServersController {
     @PutMapping
     @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<?> update(@Valid @RequestBody ServerDto server,
-                             BindingResult br,
-                             Authentication authentication) {
+                                     BindingResult br,
+                                     Authentication authentication) {
 
         if (br.hasErrors()) {
            return ControllerUtils.mapBindingResultToHttpResponse(br);
@@ -81,7 +81,7 @@ public class ServersController {
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<?> delete(@PathVariable("id") Long id,
-                                Authentication authentication) {
+                                    Authentication authentication) {
 
         ServiceResponse sr = serverService.delete(id, (UserDto) authentication.getPrincipal());
         return ControllerUtils.mapServiceResponseToHttpResponse(sr);
