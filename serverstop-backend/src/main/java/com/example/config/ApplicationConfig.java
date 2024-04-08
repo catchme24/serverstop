@@ -1,11 +1,5 @@
 package com.example.config;
 
-import com.example.dto.UserDto;
-import com.example.entity.Role;
-import com.example.repository.UserRepository;
-import com.example.security.InMemoryUserDetails;
-import com.example.security.UserDetailsServiceImpl;
-import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,10 +9,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-
-import java.util.Arrays;
-import java.util.Set;
 
 @Configuration
 public class ApplicationConfig {
