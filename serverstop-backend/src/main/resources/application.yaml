@@ -8,6 +8,11 @@ logging:
     com.example: debug
 
 spring:
+  profiles:
+    include:
+      -prod
+      -dev
+
   flyway:
     enabled: true
     out-of-order: false
@@ -17,6 +22,7 @@ spring:
     baseline-on-migrate: true
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
+#      url: jdbc:postgresql://${HOST_NAME_DB}:5432/postgres
     username: serverstop-app
     password: serverstop123
     driver-class-name: org.postgresql.Driver
